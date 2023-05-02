@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    background-color: rgb(33, 0, 85);
+    background-color: #3a0ca3;
     user-select: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -21,6 +21,7 @@ body, h1, h2, h3, h4, h5, h6, p, ol, ul, input, textarea {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   margin: 0;
+  padding: 0;
 }
 
 ol, ul {
@@ -47,15 +48,20 @@ input, select, textarea {
 }
 
 .container {
-
+    display: block;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 1rem; 
 }
 
 .main {
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 1.25);
 
 }
 
 .title {
-    color: rgb(255, 160, 208);
+    color: #22223b;
     font-size: 64px;
     font-weight: 100;
     text-align: center;
