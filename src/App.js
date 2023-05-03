@@ -37,6 +37,10 @@ const App = () => {
         }
     }
 
+    const onToggle = (todo) => {
+        console.log('toggle', todo);
+    }
+
     return(
         <section id="app" className="container">
             <header> 
@@ -48,7 +52,8 @@ const App = () => {
                 <ul className="todo-list">
                     {todos.map((todo) => (
                         <li key={todo.id.toString()} >
-                            <span className="todo">{todo.title}</span>
+                            <span className="todo" onClick={() => onToggle(todo)} KeyboardEventHandler={() => onToggle(todo)}
+                            role="button">{todo.title}</span>
                             <button className="remove" type="button">
                                 <MdDelete size={28} />
                             </button>
