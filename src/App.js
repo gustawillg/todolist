@@ -1,67 +1,89 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 import { MdDelete } from 'react-icons/md';
 
 import './App.css';
 
+
+
+
 const App = () => {
     const ESCAPE_KEY = 27;
     const ENTER_KEY = 13;
 
-    const [todos, setTodos ] = useState([]);
-    const [value, setValue] = useState("");
+    const [todos, setTodos] = useState([]);
+    const [value, setValue] = useState('');
 
     const erase = () => {
-        setValue("");
-    }
+        setValue('');
+    };
 
-    const submit = () =>  {
-        setTodos([...todos, 
-            { 
-            id: new Date().getTime(),
-            title: value, checked: false 
-            }
-        ]); 
+    const submit = () => {
+        setTodos([
+            ...todos,
+            {
+                id: new Date().getTime(),
+                title: value,
+                checked: false,
+            },
+        ]);
         erase();
-    }
+    };
 
     const onChange = (event) => {
         setValue(event.target.value);
-    }
+    };
 
     const onKeyDown = (event) => {
-        if(event.which === ENTER_KEY) {
+        if (event.which === ENTER_KEY) {
             submit();
         } else if (event.which === ESCAPE_KEY) {
             erase();
         }
-    }
+    };
 
     const onToggle = (todo) => {
-        console.log('toggle', todo);
-    }
+        setTodos(
+            todos.map((obj) =>
+                obj.id === todo.id ? { ...obj, checked: !todo.checked } : obj
+            )
+        );
+        console.log('toggle', todos);
+    };
 
-    return(
+    return (
         <section id="app" className="container">
-            <header> 
+            <header>
                 <h1 className="title">Todo List</h1>
             </header>
             <section className="main">
-                <input className="new-todo" placeholder="what needs to be done?" 
-                value={value} onChange={onChange} onKeyDown={onKeyDown} />
+                <input
+                    className="new-todo"
+                    placeholder="what needs to be done?"
+                    value={value}
+                    onChange={onChange}
+                    onKeyDown={onKeyDown}
+                />
                 <ul className="todo-list">
                     {todos.map((todo) => (
-                        <li key={todo.id.toString()} >
-                            <span className="todo" onClick={() => onToggle(todo)} KeyboardEventHandler={() => onToggle(todo)}
-                            role="button">{todo.title}</span>
+                        <li key={todo.id.toString()}>
+                            <span
+                                className={["todo", todo.checked ? "checked" : ""].join(" ")}
+                                onClick={() => onToggle(todo)}
+                                handleKeyPress={() => onToggle(todo)}
+                                role="button"
+                                tabIndex={0}
+                            >
+                                {todo.title}
+                            </span>
                             <button className="remove" type="button">
                                 <MdDelete size={28} />
                             </button>
                         </li>
                     ))}
-                </ul>    
+                </ul>
             </section>
         </section>
-);
-}
+    );
+};
 export default App;
