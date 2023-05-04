@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 
-import { MdDelete } from 'react-icons/md';
+import NewTodo from './components/NewTodo';
 
-import './App.css';
+import TodoList from './components/TodoList';
+
+
 
 const App = () => {
-    const ESCAPE_KEY = 27;
-    const ENTER_KEY = 13;
-
     const [todos, setTodos] = useState([]);
-    const [value, setValue] = useState('');
 
-    const erase = () => {
-        setValue('');
-    };
-
-    const submit = () => {
+    const onNewTodo = (value) => {
         setTodos([
             ...todos,
             {
@@ -24,19 +18,6 @@ const App = () => {
                 checked: false,
             },
         ]);
-        erase();
-    };
-
-    const onChange = (event) => {
-        setValue(event.target.value);
-    };
-
-    const onKeyDown = (event) => {
-        if (event.which === ENTER_KEY) {
-            submit();
-        } else if (event.which === ESCAPE_KEY) {
-            erase();
-        }
     };
 
     const onToggle = (todo) => {
@@ -58,38 +39,12 @@ const App = () => {
                 <h1 className="title">Todo List</h1>
             </header>
             <section className="main">
-                <input
-                    className="new-todo"
-                    placeholder="what needs to be done?"
-                    value={value}
-                    onChange={onChange}
-                    onKeyDown={onKeyDown}
+                <NewTodo onNewTodo={onNewTodo} />
+                <TodoList
+                    todos={todos}
+                    onToggle={onToggle}
+                    onRemove={onRemove}
                 />
-                <ul className="todo-list">
-                    {todos.map((todo) => (
-                        <li key={todo.id.toString()}>
-                            <span
-                                className={[
-                                    'todo',
-                                    todo.checked ? 'checked' : '',
-                                ].join(' ')}
-                                onClick={() => onToggle(todo)}
-                                handleKeyPress={() => onToggle(todo)}
-                                role="button"
-                                tabIndex={0}
-                            >
-                                {todo.title}
-                            </span>
-                            <button
-                                className="remove"
-                                type="button"
-                                onClick={() => onRemove(todo)}
-                            >
-                                <MdDelete size={28} />
-                            </button>
-                        </li>
-                    ))}
-                </ul>
             </section>
         </section>
     );
