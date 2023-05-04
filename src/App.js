@@ -4,9 +4,6 @@ import { MdDelete } from 'react-icons/md';
 
 import './App.css';
 
-
-
-
 const App = () => {
     const ESCAPE_KEY = 27;
     const ENTER_KEY = 13;
@@ -51,6 +48,10 @@ const App = () => {
         console.log('toggle', todos);
     };
 
+    const onRemove = (todo) => {
+        setTodos(todos.filter((obj) => obj.id !== todo.id));
+    };
+
     return (
         <section id="app" className="container">
             <header>
@@ -68,7 +69,10 @@ const App = () => {
                     {todos.map((todo) => (
                         <li key={todo.id.toString()}>
                             <span
-                                className={["todo", todo.checked ? "checked" : ""].join(" ")}
+                                className={[
+                                    'todo',
+                                    todo.checked ? 'checked' : '',
+                                ].join(' ')}
                                 onClick={() => onToggle(todo)}
                                 handleKeyPress={() => onToggle(todo)}
                                 role="button"
@@ -76,7 +80,11 @@ const App = () => {
                             >
                                 {todo.title}
                             </span>
-                            <button className="remove" type="button">
+                            <button
+                                className="remove"
+                                type="button"
+                                onClick={() => onRemove(todo)}
+                            >
                                 <MdDelete size={28} />
                             </button>
                         </li>
